@@ -1,0 +1,14 @@
+@extends('student/template')
+@section('title')
+    Course List
+@endsection
+@section('page')
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{route('home')}}">BelajarKu</a></li>
+@endsection
+@section('head-script')
+@endsection
+@section('content')
+
+@endsection
+@section('body-script')
+@endsection

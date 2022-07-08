@@ -1,0 +1,12 @@
+@extends('admin/template')
+@section('title')
+    Course List
+@endsection
+@section('head-script')
+    
+@endsection
+@section('content')
+@endsection
+@section('body-script')
+    
+@endsection
