@@ -11,5 +11,5 @@ class assignmentModel extends Model
 
     protected $table = "assignments";
 
-    protected $fillable = ['courseID', 'classID', 'title', 'description', 'type', 'files', 'link', 'start_date', 'end_date', 'voice', 'question', 'answer'];
+    protected $fillable = ['courseID', 'classID', 'title', 'description', 'type', 'files', 'link', 'start_date', 'end_date', 'voice', 'image', 'question', 'answer'];
 }

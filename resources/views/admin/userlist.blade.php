@@ -151,7 +151,7 @@
                               @if ($cMember->studentID == $item->id)
                                   @foreach ($class as $classItem)
                                       @if ($classItem->id == $cMember->classID)
-                                      <form action="{{url('editClass/'.$cMember->id)}}" class="allForm" id="editClass" method="post">
+                                      <form action="{{url('editClass/'.$cMember->id)}}" class="allForm" id="editClass{{$item->id}}" method="POST">
                                         @csrf
                                         <select name="class" class="classOption form-control-sm" itemID="{{$item->id}}">
                                           <option value="X" {{($classItem->class === 'X') ? 'selected' : ''}}>X</option>
@@ -163,9 +163,10 @@
                                         <script> window.addEventListener("load",clickNotif);</script>
                                         @enderror
                                         <select name="indexClass" id="indexClass{{$item->id}}" class="classOption form-control-sm" itemID="{{$item->id}}">
+                                          <?php $idx = 1?>
                                           @foreach ($class as $indexClass)
                                               @if ($classItem->class == $indexClass->class)
-                                              <option class="optionIndex{{$item->id}}" value="{{$indexClass->indexClass}}" {{($classItem->indexClass === $indexClass->indexClass) ? 'disabled selected' : ''}}>{{$indexClass->indexClass}}</option>
+                                              <option class="optionIndex{{$item->id}}" value="{{$indexClass->indexClass}}" {{($classItem->indexClass === $indexClass->indexClass) ? 'readonly selected' : ''}}>{{$indexClass->indexClass}}</option>
                                               @endif
                                           @endforeach
                                         </select>
@@ -173,7 +174,6 @@
                                         <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                                         <script> window.addEventListener("load",clickNotif);</script>
                                         @enderror
-                                        <button type="submit" class="btn btn-sm btn-primary " style="display: none">Submit</button>
                                       </div>
                                       </form>
                                       @endif
@@ -188,7 +188,7 @@
                           | 
                           <a delurl="{{url('deleteUser/'.$item->id)}}" class="text-secondary font-weight-bold text-xs buttonDelete" style="cursor: pointer">Delete</a>
                           @if ($item->role == 'STUDENT')
-                          <button type="submit" value="submit" id="editClassButton{{$item->id}}" form="editClass" class="text-secondary editClassButton font-weight-bold text-xs" style="display: none">| Change Class</button>
+                          <button type="submit" value="submit" id="editClassButton{{$item->id}}" form="editClass{{$item->id}}" class="text-secondary editClassButton font-weight-bold text-xs" style="display: none">| Change Class</button>
                           @endif
                           
                         </td>

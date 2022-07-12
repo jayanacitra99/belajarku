@@ -216,7 +216,7 @@ class AdminController extends Controller
         return back(); 
     }
 
-    public function editClass($memberID){
+    public function editClass($cmemberID){
         $class = classModel::get();
         $classMember = classMemberModel::get();
         foreach ($class as $classItem) {
@@ -232,14 +232,14 @@ class AdminController extends Controller
                         $dataClassMember = [
                             'classID' => $classItem->id,
                         ];
-                        classMemberModel::where('id',$memberID)->update($dataClassMember);
-                        Request()->session()->flash('success','Class Changed!');
+                        classMemberModel::where('id',$cmemberID)->update($dataClassMember);
+                        Request()->session()->flash('success','Class Changed!'.Request()->class.Request()->indexClass.$classItem->id);
                         return back(); 
                     } else {
                         Request()->session()->flash('notif','This Class is Full');
                         return back(); 
                     }
-                }
+                } 
             }
         }
     }

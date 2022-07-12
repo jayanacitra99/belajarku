@@ -24,8 +24,11 @@
           }
         })
       });
+      
     });
 </script>
+<style>
+</style>
 @endsection
 @section('content')
 <div class="container-fluid py-4">
@@ -37,7 +40,7 @@
           </div>
           <div class="card-body pt-4 p-3 overflow-auto max-height-vh-70">
             <ul class="list-group">
-                <?php $number = 1; $audio = 0?>
+                <?php $number = 1; $audio = 0; $imagee = 0?>
                 @foreach (unserialize($ass->question) as $item)
                     <li class="list-group-item border-0 p-4 mb-2 bg-gray-100 border-radius-lg ">
                         <div class="d-flex flex-column">
@@ -47,6 +50,11 @@
                             <audio class="mb-2" controls>
                                 <source src="{{asset('assignments/'.$ass->id.'_'.$ass->type.'/voices'.'/'.unserialize($ass->voice)[$audio++])}}">
                             </audio>
+                            @endif
+                            @if ($item['image'] != 'FALSE')
+                            <div class="image-cont d-flex justify-content-center">
+                              <img class="" src="{{asset('assignments/'.$ass->id.'_'.$ass->type.'/images'.'/'.unserialize($ass->image)[$imagee++])}}" alt="">
+                            </div>
                             @endif
                             <div class="d-flex justify-content-between row">
                                 <div class="d-flex flex-column col-4">

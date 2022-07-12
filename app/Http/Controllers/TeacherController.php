@@ -111,6 +111,16 @@ class TeacherController extends Controller
             $inputVoice = NULL;
         }
 
+        if(Request()->file('images') != NULL){
+            foreach (Request()->file('images') as $file) {
+                $imagename = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'.'.$file->extension();
+                $allimages[] = $imagename;
+            }
+            $inputImages = serialize($allimages);
+        } else {
+            $inputImages = NULL;
+        }
+
         // if(Request()->file('voice') != NULL){
         //     $voice = Request()->voice;
         //     $voiceName = Request()->type.'_'.pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'_'.time().'.'.$file->extension();
@@ -130,6 +140,7 @@ class TeacherController extends Controller
             'start_date' => Request()->start,
             'end_date' => Request()->end,
             'voice' => $inputVoice,
+            'image'=> $inputImages,
             'question' => $question,
         ];
         assignmentModel::create($data);
@@ -137,6 +148,7 @@ class TeacherController extends Controller
         $last = assignmentModel::orderBy('id','desc')->first();
         Storage::makeDirectory('assignments/'.$last->id.'_'.Request()->type);
         Storage::makeDirectory('assignments/'.$last->id.'_'.Request()->type.'/voices');
+        Storage::makeDirectory('assignments/'.$last->id.'_'.Request()->type.'/images');
 
         if(Request()->file('files') != NULL){
             foreach (Request()->file('files') as $file) {
@@ -149,6 +161,13 @@ class TeacherController extends Controller
             foreach (Request()->file('voices') as $file) {
                 $voicename = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'.'.$file->extension();
                 $file->move(public_path('assignments/'.$last->id.'_'.Request()->type.'/voices'),$voicename);
+            }
+        }
+
+        if(Request()->file('images') != NULL){
+            foreach (Request()->file('images') as $file) {
+                $imagename = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME).'.'.$file->extension();
+                $file->move(public_path('assignments/'.$last->id.'_'.Request()->type.'/images'),$imagename);
             }
         }
 
@@ -188,7 +207,13 @@ class TeacherController extends Controller
 
         if ($ass->voice != NULL) {
             foreach (unserialize($ass->voice) as $file) {
-                unlink(public_path('assignments/'.$ass->id.'_'.$ass->type).'/'.$file);
+                unlink(public_path('assignments/'.$ass->id.'_'.$ass->type).'/voices'.'/'.$file);
+            }
+        }
+
+        if ($ass->images != NULL) {
+            foreach (unserialize($ass->images) as $file) {
+                unlink(public_path('assignments/'.$ass->id.'_'.$ass->type).'/images'.'/'.$file);
             }
         }
         assignmentModel::where('id',$assID)->delete();

@@ -125,6 +125,21 @@
                     <input type="text" id="voiceStatus'+no+'" form="assForm" name="question['+count+'][voice]" value="FALSE" readonly style="display: none">
                   </div>
                 </div>
+                <div class="row d-flex justify-content-between">
+                  <div class="form-group col" style="display: none" id="inputImage'+no+'">
+                    <label for="assImage'+no+'">Assignment Image File '+no+'</label>
+                    <input type="file" form="assForm" class="form-control" name="images[]" id="assImage'+no+'" accept="image/*">
+                  </div>
+                  <div class="col">
+                    <div>
+                      <button type="button" id="addImage'+no+'" minID="minImage'+no+'" inputImage="inputImage'+no+'" vStatus="imageStatus'+no+'" class="btn bg-gradient-primary addImage" onclick="showImage(this.id)"><i class="fas fa-plus-circle"></i> Add Image</button>
+                    </div>
+                    <div >
+                      <button type="button" id="minImage'+no+'" addID="addImage'+no+'" inputImage="inputImage'+no+'" vStatus="imageStatus'+no+'" class="btn bg-gradient-primary minImage" onclick="hideImage(this.id)" style="display: none"><i class="fas fa-plus-circle"></i> Remove Image</button>
+                    </div>
+                    <input type="text" id="imageStatus'+no+'" form="assForm" name="question['+count+'][image]" value="FALSE" readonly style="display: none">
+                  </div>
+                </div>
                 <div class="row"> 
                   <div class="form-group w-1"><label>'+no+'</label></div> 
                   <div class="form-group col"> 
@@ -152,7 +167,11 @@
               @error('voice')
                     <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                     <script> window.addEventListener("load",clickNotif);</script>
-                @enderror
+              @enderror
+              @error('image')
+                  <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
+                  <script> window.addEventListener("load",clickNotif);</script>
+              @enderror
               @error('question')
                     <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                     <script> window.addEventListener("load",clickNotif);</script>
@@ -197,6 +216,30 @@
       document.getElementById(vStatus).value = 'FALSE';
   }
 
+  function showImage(clicked){
+    const element = document.getElementById(clicked);
+      var inputImage = element.getAttribute("inputImage");
+      var minID = element.getAttribute("minID");
+      var vStatus = element.getAttribute("vStatus");
+
+      document.getElementById(inputImage).style.display = 'block';
+      document.getElementById(minID).style.display = 'block';
+      document.getElementById(clicked).style.display = 'none';
+      document.getElementById(vStatus).value = 'TRUE';
+  }
+
+  function hideImage(clicked){
+    const element = document.getElementById(clicked);
+      var inputImage = element.getAttribute("inputImage");
+      var addID = element.getAttribute("addID");
+      var vStatus = element.getAttribute("vStatus");
+
+      document.getElementById(inputImage).style.display = 'none';
+      document.getElementById(clicked).style.display = 'none';
+      document.getElementById(addID).style.display = 'block';
+      document.getElementById(vStatus).value = 'FALSE';
+  }
+
   function showQuest(){
       var x = document.getElementById('assType').value;
 
@@ -222,7 +265,7 @@
       if (x == "ESSAY") {
         $("#colQuest").append('<div  id="rowQuest'+no+'" class="allQuest"> <div class="form-group col"> <label for="assQuest'+no+'">Question '+no+'</label> <textarea form="assForm"  name="question['+count+'][question]" id="assQuest'+no+'" class="form-control" rows="5"></textarea> </div> </div>');
       } else {
-        $("#colQuest").append('<div  id="rowQuest'+no+'" class="allQuest"> <div class="row d-flex justify-content-between"> <div class="form-group col" style="display: none" id="inputVoice'+no+'"> <label for="assVoice'+no+'">Assignment Voice File '+no+'</label> <input type="file" form="assForm" class="form-control" name="voices[]" id="assVoice'+no+'" accept="audio/*"> </div> <div class="form-group col"> <div> <button type="button" id="addVoice'+no+'" minID="minVoice'+no+'" inputVoice="inputVoice'+no+'" vStatus="voiceStatus'+no+'" class="btn bg-gradient-primary addVoice" onclick="showVoice(this.id)"><i class="fas fa-plus-circle"></i> Add Voice</button> </div> <div > <button type="button" id="minVoice'+no+'" addID="addVoice'+no+'" inputVoice="inputVoice'+no+'" vStatus="voiceStatus'+no+'" class="btn bg-gradient-primary minVoice" onclick="hideVoice(this.id)" style="display: none"><i class="fas fa-plus-circle"></i> Remove Voice</button> </div> <input type="text" id="voiceStatus'+no+'" form="assForm" name="question['+count+'][voice]" value="FALSE" readonly style="display: none"> </div> </div> <div class="row"> <div class="form-group w-1"><label>'+no+'</label></div> <div class="form-group col"> <label for="assQuest'+no+'">Question</label> <textarea form="assForm"  name="question['+count+'][question]" id="assQuest'+no+'" class="form-control" rows="10"></textarea> <div class="d-flex justify-content-between"><label >Answer </label> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optA'+no+'" value="A"> <label for="optA'+no+'">A</label></div> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optB'+no+'" value="B"> <label for="optB'+no+'">B</label></div> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optC'+no+'" value="C"> <label for="optC'+no+'">C</label></div> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optD'+no+'" value="D"> <label for="optD'+no+'">D</label></div> </div> </div> <div class="form-group col"> <label for="assOptA'+no+'">Option A</label> <input type="text" form="assForm" class="form-control" id="assOptA'+no+'"  name="question['+count+'][optionA]"> <label for="assOptB'+no+'">Option B</label> <input type="text" form="assForm" class="form-control" id="assOptB'+no+'"  name="question['+count+'][optionB]"> <label for="assOptC'+no+'">Option C</label> <input type="text" form="assForm" class="form-control" id="assOptC'+no+'"  name="question['+count+'][optionC]"> <label for="assOptD'+no+'">Option D</label> <input type="text" form="assForm" class="form-control" id="assOptD'+no+'"  name="question['+count+'][optionD]"> </div> </div> </div>');
+        $("#colQuest").append('<div  id="rowQuest'+no+'"> <div class="row d-flex justify-content-between"> <div class="form-group col" style="display: none" id="inputVoice'+no+'"> <label for="assVoice'+no+'">Assignment Voice File '+no+'</label> <input type="file" form="assForm" class="form-control" name="voices[]" id="assVoice'+no+'" accept="audio/*"> </div> <div class="col"> <div> <button type="button" id="addVoice'+no+'" minID="minVoice'+no+'" inputVoice="inputVoice'+no+'" vStatus="voiceStatus'+no+'" class="btn bg-gradient-primary addVoice" onclick="showVoice(this.id)"><i class="fas fa-plus-circle"></i> Add Voice</button> </div> <div > <button type="button" id="minVoice'+no+'" addID="addVoice'+no+'" inputVoice="inputVoice'+no+'" vStatus="voiceStatus'+no+'" class="btn bg-gradient-primary minVoice" onclick="hideVoice(this.id)" style="display: none"><i class="fas fa-plus-circle"></i> Remove Voice</button> </div> <input type="text" id="voiceStatus'+no+'" form="assForm" name="question['+count+'][voice]" value="FALSE" readonly style="display: none"> </div> </div> <div class="row d-flex justify-content-between"> <div class="form-group col" style="display: none" id="inputImage'+no+'"> <label for="assImage'+no+'">Assignment Image File '+no+'</label> <input type="file" form="assForm" class="form-control" name="images[]" id="assImage'+no+'" accept="image/*"> </div> <div class="col"> <div> <button type="button" id="addImage'+no+'" minID="minImage'+no+'" inputImage="inputImage'+no+'" vStatus="imageStatus'+no+'" class="btn bg-gradient-primary addImage" onclick="showImage(this.id)"><i class="fas fa-plus-circle"></i> Add Image</button> </div> <div > <button type="button" id="minImage'+no+'" addID="addImage'+no+'" inputImage="inputImage'+no+'" vStatus="imageStatus'+no+'" class="btn bg-gradient-primary minImage" onclick="hideImage(this.id)" style="display: none"><i class="fas fa-plus-circle"></i> Remove Image</button> </div> <input type="text" id="imageStatus'+no+'" form="assForm" name="question['+count+'][image]" value="FALSE" readonly style="display: none"> </div> </div> <div class="row"> <div class="form-group w-1"><label>'+no+'</label></div> <div class="form-group col"> <label for="assQuest'+no+'">Question</label> <textarea form="assForm"  name="question['+count+'][question]" id="assQuest'+no+'" class="form-control" rows="10"></textarea> <div class="d-flex justify-content-between"><label >Answer </label> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optA'+no+'" value="A"> <label for="optA'+no+'">A</label></div> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optB'+no+'" value="B"> <label for="optB'+no+'">B</label></div> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optC'+no+'" value="C"> <label for="optC'+no+'">C</label></div> <div><input form="assForm" type="radio" name="question['+count+'][answer]" id="optD'+no+'" value="D"> <label for="optD'+no+'">D</label></div> </div> </div> <div class="form-group col"> <label for="assOptA'+no+'">Option A</label> <input type="text" form="assForm" class="form-control" id="assOptA'+no+'"  name="question['+count+'][optionA]"> <label for="assOptB'+no+'">Option B</label> <input type="text" form="assForm" class="form-control" id="assOptB'+no+'"  name="question['+count+'][optionB]"> <label for="assOptC'+no+'">Option C</label> <input type="text" form="assForm" class="form-control" id="assOptC'+no+'"  name="question['+count+'][optionC]"> <label for="assOptD'+no+'">Option D</label> <input type="text" form="assForm" class="form-control" id="assOptD'+no+'"  name="question['+count+'][optionD]"> </div> </div> </div>');
       }
       count += 1;
       no += 1;

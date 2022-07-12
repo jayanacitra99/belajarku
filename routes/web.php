@@ -41,7 +41,7 @@ Route::group(['middleware'=>'admin'], function(){
     Route::post('/addNewCourse',[AdminController::class,'addNewCourse'])->name('addNewCourse');
     Route::get('/admin/classlist',[AdminController::class,'classlist'])->name('classlist');
     Route::post('/addNewClass',[AdminController::class,'addNewClass'])->name('addNewClass');
-    Route::post('/editClass/{memberID}',[AdminController::class,'editClass'])->name('editClass');
+    Route::post('/editClass/{cmemberID}',[AdminController::class,'editClass'])->name('editClass');
     Route::post('/editCourse/{courseID}',[AdminController::class,'editCourse'])->name('editCourse');
     Route::get('/deleteCourse/{courseID}',[AdminController::class,'deleteCourse'])->name('deleteCourse');
     Route::post('/editClasslist/{classID}',[AdminController::class,'editClasslist'])->name('editClasslist');
