@@ -94,7 +94,7 @@
                         $today = date('Y-m-d');
                     ?>
                     <label for="assStart">Start Date</label>
-                    <input required type="date" class="form-control" min="{{$today}}" id="assStart" onchange="changeEnd()" name="start" value="{{old('start')}}">
+                    <input type="date" class="form-control" min="{{$today}}" id="assStart" onchange="changeEnd()" name="start" value="{{old('start')}}">
                     @error('start')
                         <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                         <script> window.addEventListener("load",clickNotif);</script>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group col">
                     <label for="assEnd">End Date</label>
-                    <input required type="date" class="form-control" id="assEnd" name="end" value="{{old('end')}}" disabled>
+                    <input type="date" class="form-control" id="assEnd" name="end" value="{{old('end')}}" disabled>
                     @error('end')
                         <div class="alert alert-danger" id="notif" swalType="error" swalTitle="{{$message}}" style="display: none">{{session('notif')}}</div>
                         <script> window.addEventListener("load",clickNotif);</script>
@@ -255,8 +255,11 @@
             document.getElementById('minQuestion').click();
           }
           document.getElementById('QA').style.display = 'block';
+          document.getElementById('assStart').setAttribute('required', '');
+          document.getElementById('assEnd').setAttribute('required', '');
       } else {
           document.getElementById('QA').style.display = 'none';
+          document.getElementById('assFile').setAttribute('required', '');
       }
   }
     
