@@ -120,7 +120,7 @@
                             <td>
                                 @if ($item->files != NULL)
                                     @foreach (unserialize($item->files) as $file)
-                                        <a href="{{ asset('assignments/'.$file) }}" class="badge badge-sm bg-gradient-success" download>{{$file}}</a>
+                                        <a href="{{ asset('assignments/'.$item->id.'_'.$item->type.'/'.$file) }}" class="badge badge-sm bg-gradient-success" download>{{$file}}</a>
                                     @endforeach
                                 @else
                                 <p class="text-xs text-secondary mb-0"> - </p>
