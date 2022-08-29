@@ -86,9 +86,7 @@
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Type</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Due Date</th>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Files</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Link</th>                        
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Voice</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Question Answer</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Link</th>                 
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">Created At</th>
                         <th class="text-secondary"></th>
                     </tr>
@@ -127,20 +125,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ $item->link }}" class="badge badge-sm bg-gradient-success">{{$item->link}}</a>
-                            </td>
-                            <td>
-                                @if ($item->voice != NULL)
-                                @else
-                                <p class="text-xs text-secondary mb-0"> - </p>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($item->question != NULL)
-                                    <a href="" class="badge badge-sm bg-gradient-success">Open</a>
-                                @else
-                                <p class="text-xs text-secondary mb-0"> - </p>
-                                @endif
+                                <a href="{{ $item->link }}" target="__blank" class="badge badge-sm bg-gradient-success">{{$item->link}}</a>
                             </td>
                             <td>
                                 @if ($item->created_at != NULL)
