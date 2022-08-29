@@ -14,6 +14,7 @@ use App\Models\assignmentModel;
 use App\Models\forumModel;
 use App\Models\classModel;
 use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class TeacherController extends Controller
 {
@@ -30,6 +31,23 @@ class TeacherController extends Controller
             'course' => courseModel::get(),
         ];
         return view('teacher/dashboard',$data);
+    }
+
+    public function downloadGrade($assID,$classID,$courseID){
+        $ass = assignmentModel::where('id',$assID)->first();
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d');
+        $data = [
+            'date'      => $date,
+            'ass'       => $ass,
+            'course'    => courseModel::where('id_course',$courseID)->first(),
+            'class'     => classModel::where('id',$classID)->first(),
+            'cMember'   => classMemberModel::join('users','users.id','=','classmember.studentID')->where('classID',$classID)->get(), 
+            'assLog'    => assignmentLogModel::where('assignmentID',$assID)->get(),
+        ];
+
+        $pdf = PDF::loadView('teacher/gradePrint', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->download('Grades - '.$ass->title.'-('.$date.').pdf');
     }
 
     public function courseClass($courseID){

@@ -206,6 +206,7 @@
                                     aria-label="Close">X</button>
                             </div>
                             <div class="modal-body">
+                              <a href="{{url('downloadGrade/'.$item->id.'/'.$class->id.'/'.$course->id_course)}}" class="btn btn-primary">Print Grade</a>
                               <table class="table align-items-center pb-5 detailList overflow-auto" id="">
                                 <thead>
                                   <tr>

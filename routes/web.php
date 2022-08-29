@@ -62,6 +62,7 @@ Route::group(['middleware'=>'teacher'], function(){
     Route::get('/gradeAssignment/{assLogID}/{grade}',[TeacherController::class,'gradeAssignment'])->name('gradeAssignment');
     Route::get('/reviewAss/{assLogID}',[TeacherController::class,'reviewAss'])->name('reviewAss');
     Route::post('/sendMessageT/{classID}/{courseID}/{userID}',[TeacherController::class,'sendMessage'])->name('sendMessageT');
+    Route::get('/downloadGrade/{assID}/{classID}/{courseID}',[TeacherController::class,'downloadGrade'])->name('downloadGrade');
 });
 
 Route::group(['middleware'=>'student'], function(){
