@@ -21,7 +21,10 @@ use App\Http\Controllers\HomeController;
 
 
 Route::group(['middleware'=>'guest'], function(){
-    Route::get('/',[LoginController::class,'index'])->name('login');
+    Route::get('/', function () {
+        return redirect()->route('login');
+     });
+    Route::get('/public',[LoginController::class,'index'])->name('login');
     Route::post('/login',[LoginController::class,'login'])->name('dologin');
 });
 

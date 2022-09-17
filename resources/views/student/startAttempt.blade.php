@@ -60,10 +60,11 @@
                                 <div class="d-flex flex-column col-4">
                                     <span class="mb-2 text-xs">A : <span class="text-dark font-weight-bold ms-sm-2">{{$item['optionA']}}</span></span>
                                     <span class="mb-2 text-xs">B : <span class="text-dark ms-sm-2 font-weight-bold">{{$item['optionB']}}</span></span>
+                                    <span class="mb-2 text-xs">C : <span class="text-dark font-weight-bold ms-sm-2">{{$item['optionC']}}</span></span>
                                 </div>
                                 <div class="d-flex flex-column col-4">
-                                    <span class="mb-2 text-xs">C : <span class="text-dark font-weight-bold ms-sm-2">{{$item['optionC']}}</span></span>
                                     <span class="mb-2 text-xs">D : <span class="text-dark ms-sm-2 font-weight-bold">{{$item['optionD']}}</span></span>
+                                    <span class="mb-2 text-xs">E : <span class="text-dark ms-sm-2 font-weight-bold">{{$item['optionE']}}</span></span>
                                 </div>
                             </div>
                         @endif
@@ -112,6 +113,10 @@
                                     <input type="radio" onchange="checked{{$no}}(this)" name="answer[{{$no}}][answer]" value="D" id="optD{{$no}}" spanID="span{{$no}}">
                                     <label for="optD{{$no}}">D</label>
                                 </div>
+                                <div class="col-2">
+                                  <input type="radio" onchange="checked{{$no}}(this)" name="answer[{{$no}}][answer]" value="E" id="optE{{$no}}" spanID="span{{$no}}">
+                                  <label for="optE{{$no}}">E</label>
+                              </div>
                                 <input type="radio" onchange="checked(this)" name="answer[{{$no}}][answer]" value="NULL" checked style="display: none">
                             @endif
                             @if ($ass->type == 'ESSAY')
